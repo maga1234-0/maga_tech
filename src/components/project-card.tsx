@@ -14,7 +14,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 import type { Project } from "@/lib/types";
-import { PortfolioOptimizerModal } from "./portfolio-optimizer-modal";
 import { GitHubFollowModal } from "./github-follow-modal";
 
 type ProjectCardProps = {
@@ -47,11 +46,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
             ))}
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between items-center mt-auto pt-4">
-            <PortfolioOptimizerModal 
-                projectDescription={project.description}
-                techStack={project.techStack.join(', ')}
-            />
+        <CardFooter className="flex justify-end items-center mt-auto pt-4">
           <GitHubFollowModal githubUrl={project.githubUrl}>
             <Button variant="ghost" size="icon" aria-label={`GitHub for ${project.title}`}>
               <Github />
