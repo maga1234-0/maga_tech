@@ -1,6 +1,9 @@
+"use client";
+
 import { contact } from "@/lib/data";
 import { Github, Mail, Code2 } from "lucide-react";
 import Link from "next/link";
+import { TestOnPhone } from "./test-on-phone";
 
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -39,9 +42,12 @@ const Footer = () => {
               <span className="sr-only">Email</span>
             </a>
           </div>
-          <p className="text-sm text-foreground/60">
-            &copy; {new Date().getFullYear()} MagaTech. All Rights Reserved.
-          </p>
+          <div className="flex items-center gap-4">
+            <TestOnPhone />
+            <p className="text-sm text-foreground/60">
+              &copy; {new Date().getFullYear()} MagaTech. All Rights Reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
