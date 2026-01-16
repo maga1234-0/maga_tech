@@ -5,6 +5,7 @@ import { Github, Mail, Code2 } from "lucide-react";
 import Link from "next/link";
 import { TestOnPhone } from "./test-on-phone";
 import { useState, useEffect } from "react";
+import { GitHubFollowModal } from "./github-follow-modal";
 
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -35,10 +36,12 @@ const Footer = () => {
                 MagaTech
             </Link>
           <div className="flex gap-4">
-            <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-foreground/60 hover:text-primary transition-colors">
-              <Github className="w-6 h-6" />
-              <span className="sr-only">GitHub</span>
-            </a>
+            <GitHubFollowModal githubUrl={contact.github}>
+              <button className="text-foreground/60 hover:text-primary transition-colors">
+                <Github className="w-6 h-6" />
+                <span className="sr-only">GitHub</span>
+              </button>
+            </GitHubFollowModal>
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="text-foreground/60 hover:text-primary transition-colors">
               <WhatsAppIcon className="w-6 h-6" />
               <span className="sr-only">WhatsApp</span>

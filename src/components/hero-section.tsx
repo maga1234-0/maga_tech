@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github } from "lucide-react";
 import { contact } from "@/lib/data";
+import { GitHubFollowModal } from "./github-follow-modal";
 
 const HeroSection = () => {
     const scrollToSection = (id: string) => {
@@ -38,11 +39,11 @@ const HeroSection = () => {
             <Button size="lg" onClick={() => scrollToSection('projects')}>
             View Projects <ArrowRight className="ml-2" />
             </Button>
-            <Button size="lg" variant="outline" asChild>
-            <a href={contact.github} target="_blank" rel="noopener noreferrer">
+            <GitHubFollowModal githubUrl={contact.github}>
+              <Button size="lg" variant="outline">
                 <Github className="mr-2" /> GitHub
-            </a>
-            </Button>
+              </Button>
+            </GitHubFollowModal>
         </motion.div>
         </div>
     </div>

@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 import type { Project } from "@/lib/types";
 import { PortfolioOptimizerModal } from "./portfolio-optimizer-modal";
+import { GitHubFollowModal } from "./github-follow-modal";
 
 type ProjectCardProps = {
   project: Project;
@@ -51,11 +52,11 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                 projectDescription={project.description}
                 techStack={project.techStack.join(', ')}
             />
-          <Button variant="ghost" size="icon" asChild>
-            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`GitHub for ${project.title}`}>
+          <GitHubFollowModal githubUrl={project.githubUrl}>
+            <Button variant="ghost" size="icon" aria-label={`GitHub for ${project.title}`}>
               <Github />
-            </a>
-          </Button>
+            </Button>
+          </GitHubFollowModal>
         </CardFooter>
       </Card>
     </motion.div>
