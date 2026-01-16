@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useEffect, useState } from 'react';
 
 const InteractiveBackground = () => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
     const [mousePosition, setMousePosition] = useState({ x: -1000, y: -1000 });
     const [isClient, setIsClient] = useState(false);
 
@@ -22,65 +22,108 @@ const InteractiveBackground = () => {
         };
     }, []);
 
+    useEffect(() => {
+        if (!isClient) return;
+
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        let animationFrameId: number;
+
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles: { x: number; y: number; baseX: number; baseY: number; density: number }[] = [];
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                baseX: Math.random() * canvas.width,
+                baseY: Math.random() * canvas.height,
+                density: Math.random() * 30 + 1,
+            });
+        }
+
+        const animate = () => {
+            if (!ctx || !canvas) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+            const [h, s, l] = primaryColor.trim().split(' ').map(parseFloat);
+            const lineColor = `hsla(${h}, ${s}%, ${l}%, 0.15)`;
+            const particleColor = `hsla(${h}, ${s}%, ${l}%, 0.4)`;
+
+            for (let i = 0; i < particleCount; i++) {
+                let distanceToMouse = Math.sqrt(
+                    (particles[i].x - mousePosition.x) ** 2 + (particles[i].y - mousePosition.y) ** 2
+                );
+                if (distanceToMouse < 200) {
+                    ctx.strokeStyle = lineColor;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mousePosition.x, mousePosition.y);
+                    ctx.stroke();
+                }
+
+                for (let j = i; j < particleCount; j++) {
+                    let distance = Math.sqrt(
+                        (particles[i].x - particles[j].x) ** 2 + (particles[i].y - particles[j].y) ** 2
+                    );
+                    if (distance < 120) {
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+
+                particles[i].x += (Math.random() - 0.5) * 0.5;
+                particles[i].y += (Math.random() - 0.5) * 0.5;
+
+                if (particles[i].x > canvas.width || particles[i].x < 0) {
+                    particles[i].x = Math.random() * canvas.width;
+                }
+                if (particles[i].y > canvas.height || particles[i].y < 0) {
+                    particles[i].y = Math.random() * canvas.height;
+                }
+
+                ctx.fillStyle = particleColor;
+                ctx.beginPath();
+                ctx.arc(particles[i].x, particles[i].y, 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            animationFrameId = requestAnimationFrame(animate);
+        };
+
+        animate();
+
+        return () => {
+            window.removeEventListener('resize', resizeCanvas);
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, [isClient, mousePosition]);
+
     if (!isClient) {
         return null;
     }
 
     return (
         <div className="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
-            <div
-                className="absolute inset-0 transition-all duration-300 ease-out"
-                style={{
-                    background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, hsl(var(--primary) / 0.1), transparent 80%)`,
-                }}
-            />
-            
-            <div className="relative w-full h-full">
-                <motion.div
-                    className="absolute top-[10%] left-[10%] w-72 h-72 bg-primary/10 rounded-full filter blur-3xl opacity-50"
-                    animate={{
-                        x: [0, 100, 0, -100, 0],
-                        y: [0, 50, 100, 50, 0],
-                        scale: [1, 1.1, 1, 0.9, 1],
-                    }}
-                    transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        repeatType: "mirror",
-                        ease: "easeInOut",
-                    }}
-                />
-                <motion.div
-                    className="absolute bottom-[10%] right-[10%] w-96 h-96 bg-accent/10 rounded-full filter blur-3xl opacity-50"
-                    animate={{
-                        x: [0, -100, 0, 100, 0],
-                        y: [0, -50, -100, -50, 0],
-                        scale: [1, 0.9, 1, 1.1, 1],
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        repeatType: "mirror",
-                        ease: "easeInOut",
-                        delay: 5,
-                    }}
-                />
-                 <motion.div
-                    className="absolute bottom-[30%] left-[25%] w-64 h-64 bg-secondary/10 rounded-full filter blur-2xl opacity-40"
-                    animate={{
-                        x: [0, 50, 0, -50, 0],
-                        y: [0, 100, 50, 100, 0],
-                        scale: [1, 1.2, 0.8, 1.1, 1],
-                    }}
-                    transition={{
-                        duration: 30,
-                        repeat: Infinity,
-                        repeatType: "mirror",
-                        ease: "easeInOut",
-                        delay: 10,
-                    }}
-                />
-            </div>
+            <canvas ref={canvasRef} className="w-full h-full" />
         </div>
     );
 };
