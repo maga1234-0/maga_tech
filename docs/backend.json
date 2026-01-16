@@ -1,0 +1,175 @@
+{
+  "entities": {
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "Represents a project showcased on the portfolio.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Project entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the project."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the project."
+        },
+        "techStack": {
+          "type": "array",
+          "description": "List of technologies used in the project.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "githubLink": {
+          "type": "string",
+          "description": "Link to the project's GitHub repository.",
+          "format": "uri"
+        },
+        "imageLink": {
+          "type": "string",
+          "description": "Link to the project's image.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "techStack",
+        "githubLink"
+      ]
+    },
+    "GitHubProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GitHubProfile",
+      "type": "object",
+      "description": "Represents the GitHub profile information.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the GitHubProfile entity."
+        },
+        "username": {
+          "type": "string",
+          "description": "GitHub username."
+        },
+        "profileUrl": {
+          "type": "string",
+          "description": "URL to the GitHub profile.",
+          "format": "uri"
+        },
+        "followers": {
+          "type": "number",
+          "description": "Number of followers on GitHub."
+        },
+        "pinnedRepositories": {
+          "type": "array",
+          "description": "List of pinned GitHub repositories.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "profileUrl",
+        "followers"
+      ]
+    },
+    "ContactInfo": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ContactInfo",
+      "type": "object",
+      "description": "Represents contact information for the portfolio.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ContactInfo entity."
+        },
+        "whatsappNumber": {
+          "type": "string",
+          "description": "WhatsApp number for contact."
+        },
+        "emailAddress": {
+          "type": "string",
+          "description": "Email address for contact.",
+          "format": "email"
+        }
+      },
+      "required": [
+        "id",
+        "whatsappNumber",
+        "emailAddress"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}/github_profile",
+        "definition": {
+          "entityName": "GitHubProfile",
+          "schema": {
+            "$ref": "#/backend/entities/GitHubProfile"
+          },
+          "description": "Stores the GitHub profile information for each user. Uses path-based ownership for data privacy. Includes fields like username, profileUrl, followers, and pinnedRepositories.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores project data for each user. Uses path-based ownership for data privacy. Includes fields like title, description, techStack, githubLink, and imageLink.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "projectId",
+              "description": "The unique identifier for the project."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/contact_info",
+        "definition": {
+          "entityName": "ContactInfo",
+          "schema": {
+            "$ref": "#/backend/entities/ContactInfo"
+          },
+          "description": "Stores contact information for each user, like WhatsApp number and email address. Uses path-based ownership for data privacy.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to manage portfolio data, GitHub profile information, and contact details. It prioritizes Authorization Independence by avoiding hierarchical authorization dependencies. The GitHubProfile data is stored at `/users/{userId}/github_profile` to ensure private user data, using path-based ownership. This eliminates the need for `get()` calls in security rules and supports atomic operations.\n\nSegregation is employed to ensure each collection has a homogeneous security posture. User-specific data, like GitHub profiles, are stored in subcollections of the `/users/{userId}` collection.\n\nQAPs are supported by the path-based ownership model. Listing GitHub profiles is restricted to the user, enabling secure list operations."
+  }
+}

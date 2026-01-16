@@ -1,0 +1,111 @@
+/**
+ * This ruleset enforces a strict user-ownership model for a personal portfolio application.
+ *
+ * Core Philosophy:
+ * The security model is centered around data privacy and isolation. Each user has a dedicated
+ * data silo, and no user can access another user's information. All access requires authentication,
+ * and there is no public data.
+ *
+ * Data Structure:
+ * All application data, including projects, GitHub profile information, and contact details, is
+ * nested under the `/users/{userId}` path. This structure ensures that ownership is clearly
+ * defined by the document path, simplifying security rules and eliminating the need for costly
+ * cross-document reads (`get()`) for authorization checks.
+ *
+ * Key Security Decisions:
+ * - Default Deny: All operations are denied by default. Access is only granted through explicit `allow` statements.
+ * - Strict Ownership: A user can only read or write data within their own document tree (i.e., where the path's `{userId}` matches their authenticated UID).
+ * - No User Enumeration: Listing the top-level `/users` collection is explicitly forbidden to prevent discovery of other users.
+ * - Path-Based Security: Authorization relies entirely on the document path, which is a highly performant and secure pattern. We do not need to inspect document data to authorize most requests.
+ * - Prototyping Flexibility: These rules focus strictly on authorization (who can access what) and do not enforce the specific shape or data types of the documents being written. This allows for rapid development and schema iteration.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions to promote readable, secure, and maintainable rules.
+
+    /**
+     * Returns true if the user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Returns true if the authenticated user's UID matches the provided userId.
+     * This is the primary function for enforcing the ownership model.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /**
+     * Returns true if the user is the owner AND the document already exists.
+     * This is crucial for preventing modification or deletion of non-existent documents.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * @description Rules for a user's root document.
+     * @path /users/{userId}
+     * @allow (create) An authenticated user can create their own user document.
+     * @deny (list) A user cannot list the `/users` collection to discover other users.
+     * @principle Prevents user enumeration and allows users to establish their own data root.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+
+      /**
+       * @description Secures the user's private GitHub profile information.
+       * @path /users/{userId}/github_profile/{githubProfileId}
+       * @allow (create) The user with UID matching {userId} can create their GitHub profile document.
+       * @deny (get) An anonymous user or a different authenticated user cannot read this data.
+       * @principle Restricts access to a user's own data tree using path-based ownership.
+       */
+      match /github_profile/{githubProfileId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+
+      /**
+       * @description Secures the user's private project documents.
+       * @path /users/{userId}/projects/{projectId}
+       * @allow (list) The user with UID matching {userId} can list all their own projects.
+       * @deny (update) A user cannot update a project belonging to another user.
+       * @principle Restricts access to a user's own data tree using path-based ownership.
+       */
+      match /projects/{projectId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+
+      /**
+       * @description Secures the user's private contact information.
+       * @path /users/{userId}/contact_info/{contactInfoId}
+       * @allow (get) The user with UID matching {userId} can read their own contact information.
+       * @deny (create) An anonymous user cannot create contact information for any user.
+       * @principle Restricts access to a user's own data tree using path-based ownership.
+       */
+      match /contact_info/{contactInfoId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+    }
+  }
+}
