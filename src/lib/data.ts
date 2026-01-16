@@ -82,6 +82,6 @@ export const bio =
 
 export const contact = {
   email: 'your-email@magatech.com',
-  whatsapp: '+1234567890',
+  whatsapp: '+243980453932',
   github: 'https://github.com/MagaTech',
 };
