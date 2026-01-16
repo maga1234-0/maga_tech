@@ -34,35 +34,50 @@ const InteractiveBackground = () => {
                     background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, hsl(var(--primary) / 0.1), transparent 80%)`,
                 }}
             />
-            <div className="absolute inset-0">
+            
+            <div className="relative w-full h-full">
                 <motion.div
-                    className="absolute w-[200%] h-[200%] top-[-50%] left-[-50%]"
+                    className="absolute top-[10%] left-[10%] w-72 h-72 bg-primary/10 rounded-full filter blur-3xl opacity-50"
                     animate={{
-                        rotate: 360,
+                        x: [0, 100, 0, -100, 0],
+                        y: [0, 50, 100, 50, 0],
+                        scale: [1, 1.1, 1, 0.9, 1],
                     }}
                     transition={{
-                        duration: 120,
+                        duration: 20,
                         repeat: Infinity,
-                        ease: 'linear',
-                    }}
-                    style={{
-                        background:
-                            'conic-gradient(from 0deg, transparent 0%, hsl(var(--primary)/0.1) 10%, transparent 20%)',
+                        repeatType: "mirror",
+                        ease: "easeInOut",
                     }}
                 />
                 <motion.div
-                    className="absolute w-[200%] h-[200%] top-[-50%] left-[-50%]"
+                    className="absolute bottom-[10%] right-[10%] w-96 h-96 bg-accent/10 rounded-full filter blur-3xl opacity-50"
                     animate={{
-                        rotate: -360,
+                        x: [0, -100, 0, 100, 0],
+                        y: [0, -50, -100, -50, 0],
+                        scale: [1, 0.9, 1, 1.1, 1],
                     }}
                     transition={{
-                        duration: 90,
+                        duration: 25,
                         repeat: Infinity,
-                        ease: 'linear',
+                        repeatType: "mirror",
+                        ease: "easeInOut",
+                        delay: 5,
                     }}
-                    style={{
-                        background:
-                            'conic-gradient(from 180deg, transparent 0%, hsl(var(--accent)/0.1) 15%, transparent 25%)',
+                />
+                 <motion.div
+                    className="absolute bottom-[30%] left-[25%] w-64 h-64 bg-secondary/10 rounded-full filter blur-2xl opacity-40"
+                    animate={{
+                        x: [0, 50, 0, -50, 0],
+                        y: [0, 100, 50, 100, 0],
+                        scale: [1, 1.2, 0.8, 1.1, 1],
+                    }}
+                    transition={{
+                        duration: 30,
+                        repeat: Infinity,
+                        repeatType: "mirror",
+                        ease: "easeInOut",
+                        delay: 10,
                     }}
                 />
             </div>
