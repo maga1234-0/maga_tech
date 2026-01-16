@@ -1,7 +1,19 @@
 import type { Project } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-export const projects: Project[] = [];
+const projectImage = PlaceHolderImages.find(p => p.id === 'project-1');
+
+export const projects: Project[] = [
+  {
+    id: '1',
+    title: 'MagaTech Portfolio',
+    description: 'A dynamic and responsive personal portfolio website to showcase my projects and skills, built with Next.js and Firebase. It features an interactive background, AI-powered content analysis, and a modal to capture GitHub follower interest.',
+    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Firebase', 'Genkit'],
+    githubUrl: 'https://github.com/maga1234-0/protefolio',
+    imageUrl: projectImage?.imageUrl || 'https://picsum.photos/seed/project1/600/400',
+    imageHint: projectImage?.imageHint || 'code laptop',
+  }
+];
 
 export const skills = [
   'React',
