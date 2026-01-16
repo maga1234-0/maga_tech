@@ -25,16 +25,15 @@ type GitHubFollowModalProps = {
 export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  const [password, setPassword] = useState('');
   const { toast } = useToast();
   const firestore = useFirestore();
 
   const handleFollow = () => {
-    if (!inputValue.trim() || !password.trim()) {
+    if (!inputValue.trim()) {
       toast({
         variant: "destructive",
         title: "Input Required",
-        description: "Please enter your email or GitHub account and password.",
+        description: "Please enter your email or GitHub account.",
       });
       return;
     }
@@ -47,14 +46,13 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
     });
     
     toast({
-        title: 'Thank you for following!',
-        description: "Redirecting you to GitHub...",
+        title: 'Thank you!',
+        description: "Redirecting you to GitHub to complete the follow...",
     });
 
     // Close the modal and open the GitHub link in a new tab.
     setIsOpen(false);
     setInputValue('');
-    setPassword('');
     window.open(githubUrl, '_blank', 'noopener,noreferrer');
   };
 
@@ -68,7 +66,7 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
             Follow on GitHub
           </DialogTitle>
           <DialogDescription>
-            Your follow is greatly appreciated! Please enter your email or GitHub account and password below before continuing.
+            Your follow is greatly appreciated! Enter your email or GitHub username below to continue to the repository.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -86,24 +84,9 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
                     }}
                 />
             </div>
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                    id="password"
-                    type="password"
-                    placeholder="Your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            handleFollow();
-                        }
-                    }}
-                />
-            </div>
         </div>
         <Button onClick={handleFollow} type="submit" className="w-full">
-          <Github className="mr-2 h-4 w-4" /> Follow & Visit Repository
+          <Github className="mr-2 h-4 w-4" /> Continue to GitHub
         </Button>
       </DialogContent>
     </Dialog>
