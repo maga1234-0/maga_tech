@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Smartphone } from "lucide-react";
 
 export function TestOnPhone() {
   const [url, setUrl] = useState("");
@@ -27,8 +26,7 @@ export function TestOnPhone() {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
-          <Smartphone className="mr-2 h-4 w-4" />
-          Test on Phone
+          click here and scan
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
