@@ -38,6 +38,43 @@ export const projects: Project[] = [
     imageUrl: PlaceHolderImages[3].imageUrl,
     imageHint: PlaceHolderImages[3].imageHint,
   },
+  {
+    id: '5',
+    title: 'HealthSync API',
+    description: 'A secure and scalable API for managing electronic health records, compliant with industry standards.',
+    techStack: ['Node.js', 'Express', 'PostgreSQL', 'JWT', 'HL7/FHIR'],
+    githubUrl: 'https://github.com/MagaTech',
+    imageUrl: PlaceHolderImages[4].imageUrl,
+    imageHint: PlaceHolderImages[4].imageHint,
+  },
+  {
+    id: '6',
+    title: 'Creative Canvas',
+    description: 'A real-time collaborative whiteboard application for teams, with drawing tools and chat functionality.',
+    techStack: ['React', 'WebSockets', 'Canvas API', 'Redis'],
+    githubUrl: 'https://github.com/MagaTech',
+    imageUrl: PlaceHolderImages[5].imageUrl,
+    imageHint: PlaceHolderImages[5].imageHint,
+  },
+];
+
+export const skills = [
+  'React',
+  'Next.js',
+  'TypeScript',
+  'JavaScript',
+  'Python',
+  'Go',
+  'Node.js',
+  'GraphQL',
+  'REST APIs',
+  'Tailwind CSS',
+  'Firebase',
+  'Docker',
+  'Kubernetes',
+  'Solidity',
+  'Web3.js',
+  'TensorFlow',
 ];
 
 export const bio =

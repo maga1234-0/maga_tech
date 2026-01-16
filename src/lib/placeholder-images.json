@@ -23,6 +23,18 @@
       "description": "A clean and modern server room with blue and green lighting",
       "imageUrl": "https://images.unsplash.com/photo-1691435828932-911a7801adfb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzZXJ2ZXIlMjByb29tfGVufDB8fHx8MTc2ODU0Nzg4MHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "server room"
+    },
+    {
+      "id": "project-5",
+      "description": "Abstract visualization of health data and molecules",
+      "imageUrl": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWFsdGglMjBkYXRhfGVufDB8fHx8MTc3MDI0MjAwNnww&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "health data"
+    },
+    {
+      "id": "project-6",
+      "description": "A collaborative digital whiteboard session in progress",
+      "imageUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2xsYWJvcmF0aXZlJTIwd2hpdGVib2FyZHxlbnwwfHx8fDE3NzAyNDIwNDZ8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "collaborative whiteboard"
     }
   ]
 }

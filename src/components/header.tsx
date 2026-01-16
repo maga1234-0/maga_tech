@@ -3,10 +3,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Code2 } from "lucide-react";
+import { Code2, Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "./ui/button";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +24,7 @@ const Header = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -39,9 +43,28 @@ const Header = () => {
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           <button onClick={() => scrollToSection('projects')} className="text-foreground/80 hover:text-primary transition-colors">Projects</button>
+          <button onClick={() => scrollToSection('skills')} className="text-foreground/80 hover:text-primary transition-colors">Skills</button>
           <button onClick={() => scrollToSection('about')} className="text-foreground/80 hover:text-primary transition-colors">About</button>
           <button onClick={() => scrollToSection('contact')} className="text-foreground/80 hover:text-primary transition-colors">Contact</button>
         </nav>
+        <div className="md:hidden">
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <nav className="flex flex-col gap-6 text-lg font-medium mt-16 text-center">
+                <button onClick={() => scrollToSection('projects')} className="text-foreground/80 hover:text-primary transition-colors">Projects</button>
+                <button onClick={() => scrollToSection('skills')} className="text-foreground/80 hover:text-primary transition-colors">Skills</button>
+                <button onClick={() => scrollToSection('about')} className="text-foreground/80 hover:text-primary transition-colors">About</button>
+                <button onClick={() => scrollToSection('contact')} className="text-foreground/80 hover:text-primary transition-colors">Contact</button>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </motion.header>
   );
