@@ -107,6 +107,27 @@
         "whatsappNumber",
         "emailAddress"
       ]
+    },
+    "GitHubFollower": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GitHubFollower",
+      "type": "object",
+      "description": "Represents a user who has followed the GitHub repository through the portfolio modal.",
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "description": "The email or GitHub username provided by the user."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the user followed."
+        }
+      },
+      "required": [
+        "identifier",
+        "createdAt"
+      ]
     }
   },
   "auth": {
@@ -164,7 +185,23 @@
           "params": [
             {
               "name": "userId",
-              "description": "The unique identifier for the user."
+              "description": "The unique identifier for the."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/github_followers/{followerId}",
+        "definition": {
+          "entityName": "GitHubFollower",
+          "schema": {
+            "$ref": "#/backend/entities/GitHubFollower"
+          },
+          "description": "Stores entries from users who followed on GitHub via the portfolio modal. This collection is write-only for clients and not readable to protect privacy.",
+          "params": [
+            {
+              "name": "followerId",
+              "description": "The unique identifier for the follower entry."
             }
           ]
         }

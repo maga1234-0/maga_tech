@@ -14,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Github } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useFirestore, addDocumentNonBlocking } from "@/firebase";
+import { collection } from "firebase/firestore";
 
 type GitHubFollowModalProps = {
   children: React.ReactNode;
@@ -24,6 +26,7 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const { toast } = useToast();
+  const firestore = useFirestore();
 
   const handleFollow = () => {
     if (!inputValue.trim()) {
@@ -34,9 +37,13 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
       });
       return;
     }
-    // In a real application, you might send this data to a server.
-    // For this portfolio, we'll just log it and proceed.
-    console.log(`User provided: ${inputValue}`);
+    
+    // Save the follower to Firestore
+    const followersCollection = collection(firestore, 'github_followers');
+    addDocumentNonBlocking(followersCollection, {
+      identifier: inputValue,
+      createdAt: new Date(),
+    });
     
     toast({
         title: 'Thank you for following!',
@@ -45,6 +52,7 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
 
     // Close the modal and open the GitHub link in a new tab.
     setIsOpen(false);
+    setInputValue('');
     window.open(githubUrl, '_blank', 'noopener,noreferrer');
   };
 

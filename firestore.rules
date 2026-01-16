@@ -47,6 +47,18 @@ service cloud.firestore {
     function isExistingOwner(userId) {
       return isOwner(userId) && resource != null;
     }
+    
+    /**
+     * @description Rules for the GitHub followers collection.
+     * @path /github_followers/{followerId}
+     * @allow (create) Anyone can create a document to register their follow.
+     * @deny (read, list, update, delete) No one can read, list, or modify entries to protect privacy.
+     * @principle Allows for public write-only data collection.
+     */
+    match /github_followers/{followerId} {
+      allow create: if true;
+      allow read, list, update, delete: if false;
+    }
 
     /**
      * @description Rules for a user's root document.
