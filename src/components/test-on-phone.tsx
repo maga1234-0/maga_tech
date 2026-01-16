@@ -15,13 +15,16 @@ import { Smartphone } from "lucide-react";
 
 export function TestOnPhone() {
   const [url, setUrl] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    setUrl(window.location.href);
-  }, []);
+    if (isOpen) {
+      setUrl(window.location.href);
+    }
+  }, [isOpen]);
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           <Smartphone className="mr-2 h-4 w-4" />

@@ -4,6 +4,7 @@ import { contact } from "@/lib/data";
 import { Github, Mail, Code2 } from "lucide-react";
 import Link from "next/link";
 import { TestOnPhone } from "./test-on-phone";
+import { useState, useEffect } from "react";
 
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -17,8 +18,13 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const Footer = () => {
+  const [year, setYear] = useState(new Date().getFullYear());
   const whatsappLink = `https://wa.me/${contact.whatsapp.replace(/\D/g, '')}`;
   const emailLink = `mailto:${contact.email}`;
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
     <footer className="bg-background/50 border-t border-border mt-12">
@@ -45,7 +51,7 @@ const Footer = () => {
           <div className="flex items-center gap-4">
             <TestOnPhone />
             <p className="text-sm text-foreground/60">
-              &copy; {new Date().getFullYear()} MagaTech. All Rights Reserved.
+              &copy; {year} MagaTech. All Rights Reserved.
             </p>
           </div>
         </div>
