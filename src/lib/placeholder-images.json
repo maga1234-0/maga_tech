@@ -27,7 +27,7 @@
     {
       "id": "project-5",
       "description": "Abstract visualization of health data and molecules",
-      "imageUrl": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWFsdGglMjBkYXRhfGVufDB8fHx8MTc3MDI0MjAwNnww&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWFsdGglMjBkYXRhfGVufDB8fHx8fDE3NzAyNDIwMDZ8MA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "health data"
     },
     {
@@ -38,9 +38,9 @@
     },
     {
       "id": "profile-picture",
-      "description": "Aubin Maga's professional profile picture.",
-      "imageUrl": "https://i.ibb.co/Xz9dK9z/Aubin-Maga-pic.jpg",
-      "imageHint": "male portrait"
+      "description": "A modern laptop on a desk.",
+      "imageUrl": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "laptop computer"
     }
   ]
 }
