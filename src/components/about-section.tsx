@@ -2,8 +2,11 @@ import Image from 'next/image';
 import { bio } from "@/lib/data";
 import SectionWrapper from "./section-wrapper";
 import { Card, CardContent } from "@/components/ui/card";
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const AboutSection = () => {
+  const profileImage = PlaceHolderImages.find(p => p.id === 'profile-picture');
+
   return (
     <SectionWrapper id="about">
       <div className="text-center mb-12">
@@ -14,12 +17,13 @@ const AboutSection = () => {
           <CardContent className="p-8 md:p-10 text-center">
             <div className="flex justify-center mb-6">
               <Image
-                src="/profile.jpg"
+                src={profileImage?.imageUrl || "/profile.jpg"}
                 alt="Aubin Maga"
                 width={96}
                 height={96}
                 className="rounded-full object-cover border-4 border-primary/20 shadow-lg"
                 priority
+                data-ai-hint={profileImage?.imageHint || 'profile portrait'}
               />
             </div>
             <p className="text-lg text-foreground/80 leading-relaxed font-body">

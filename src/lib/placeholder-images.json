@@ -35,6 +35,12 @@
       "description": "A collaborative digital whiteboard session in progress",
       "imageUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2xsYWJvcmF0aXZlJTIwd2hpdGVib2FyZHxlbnwwfHx8fDE3NzAyNDIwNDZ8MA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "collaborative whiteboard"
+    },
+    {
+      "id": "profile-picture",
+      "description": "A placeholder image for a professional profile picture.",
+      "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+      "imageHint": "male portrait"
     }
   ]
 }
