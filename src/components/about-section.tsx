@@ -1,7 +1,7 @@
+import Image from 'next/image';
 import { bio } from "@/lib/data";
 import SectionWrapper from "./section-wrapper";
 import { Card, CardContent } from "@/components/ui/card";
-import { User } from "lucide-react";
 
 const AboutSection = () => {
   return (
@@ -13,9 +13,14 @@ const AboutSection = () => {
         <Card className="bg-card/50 backdrop-blur-sm border-border/50">
           <CardContent className="p-8 md:p-10 text-center">
             <div className="flex justify-center mb-6">
-              <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center">
-                <User className="w-12 h-12 text-primary-foreground" />
-              </div>
+              <Image
+                src="/profile.jpg"
+                alt="Aubin Maga"
+                width={96}
+                height={96}
+                className="rounded-full object-cover border-4 border-primary/20 shadow-lg"
+                priority
+              />
             </div>
             <p className="text-lg text-foreground/80 leading-relaxed font-body">
               {bio}
