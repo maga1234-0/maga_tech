@@ -21,17 +21,11 @@ export const skills = [
   'TypeScript',
   'JavaScript',
   'Python',
-  'Go',
   'Node.js',
-  'GraphQL',
-  'REST APIs',
   'Tailwind CSS',
   'Firebase',
   'Docker',
   'Kubernetes',
-  'Solidity',
-  'Web3.js',
-  'TensorFlow',
 ];
 
 export const bio =
