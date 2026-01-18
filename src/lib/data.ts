@@ -21,5 +21,5 @@ export const bio =
 export const contact = {
   email: 'aubinmaga@gmail.com',
   whatsapp: '+243980453932',
-  github: 'https://github.com/maga1234-0/maga_tech',
+  github: 'https://github.com/maga1234-0/maga_tech.git',
 };
