@@ -33,7 +33,7 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
       toast({
         variant: "destructive",
         title: "Input Required",
-        description: "Please enter your email or GitHub account.",
+        description: "Please enter your GitHub username.",
       });
       return;
     }
@@ -66,15 +66,15 @@ export function GitHubFollowModal({ children, githubUrl }: GitHubFollowModalProp
             Follow on GitHub
           </DialogTitle>
           <DialogDescription>
-            Your follow is greatly appreciated! Enter your email or GitHub username below to continue to the repository.
+            Your follow is greatly appreciated! Enter your GitHub username below to continue to the repository.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
             <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="email-github">Email or GitHub Account</Label>
+                <Label htmlFor="github-username">GitHub Username</Label>
                 <Input
-                    id="email-github"
-                    placeholder="your-email@example.com"
+                    id="github-username"
+                    placeholder="your-username"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={(e) => {
