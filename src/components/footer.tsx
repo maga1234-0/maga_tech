@@ -1,7 +1,7 @@
 "use client";
 
 import { contact } from "@/lib/data";
-import { Github, Mail, Code2 } from "lucide-react";
+import { Github, Mail, AppWindow } from "lucide-react";
 import Link from "next/link";
 import { TestOnPhone } from "./test-on-phone";
 import { useState, useEffect } from "react";
@@ -32,7 +32,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <Link href="/" className="flex items-center gap-2 text-xl font-headline font-bold text-primary">
-                <Code2 className="w-7 h-7" />
+                <AppWindow className="w-7 h-7" />
                 MagaTech
             </Link>
           <div className="flex gap-4">
