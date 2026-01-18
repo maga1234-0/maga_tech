@@ -4,6 +4,7 @@ export type Project = {
   description: string;
   techStack: string[];
   githubUrl: string;
+  liveUrl: string;
   imageUrl: string;
   imageHint: string;
 };

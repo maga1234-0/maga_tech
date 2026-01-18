@@ -22,39 +22,63 @@ type ProjectCardProps = {
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
-    <motion.div whileHover={{ y: -8 }} transition={{ duration: 0.3 }} className="h-full">
-      <Card className="h-full flex flex-col overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 transition-all hover:border-primary/50">
-        <CardHeader>
+    <a
+      href={project.liveUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block h-full group"
+    >
+      <motion.div
+        whileHover={{ y: -8 }}
+        transition={{ duration: 0.3 }}
+        className="h-full"
+      >
+        <Card className="h-full flex flex-col overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 transition-all group-hover:border-primary/50">
+          <CardHeader>
             <div className="aspect-video relative mb-4 rounded-lg overflow-hidden border">
-                <Image
-                    src={project.imageUrl}
-                    alt={project.title}
-                    fill
-                    className="object-cover"
-                    data-ai-hint={project.imageHint}
-                />
+              <Image
+                src={project.imageUrl}
+                alt={project.title}
+                fill
+                className="object-cover"
+                data-ai-hint={project.imageHint}
+              />
             </div>
-          <CardTitle className="font-headline text-2xl">{project.title}</CardTitle>
-          <CardDescription>{project.description}</CardDescription>
-        </CardHeader>
-        <CardContent className="flex-grow">
-          <div className="flex flex-wrap gap-2">
-            {project.techStack.map((tech) => (
-              <Badge key={tech} variant="secondary">
-                {tech}
-              </Badge>
-            ))}
-          </div>
-        </CardContent>
-        <CardFooter className="flex justify-end items-center mt-auto pt-4">
-          <GitHubFollowModal githubUrl={project.githubUrl}>
-            <Button variant="ghost" size="icon" aria-label={`GitHub for ${project.title}`}>
-              <Github />
-            </Button>
-          </GitHubFollowModal>
-        </CardFooter>
-      </Card>
-    </motion.div>
+            <CardTitle className="font-headline text-2xl">
+              {project.title}
+            </CardTitle>
+            <CardDescription>{project.description}</CardDescription>
+          </CardHeader>
+          <CardContent className="flex-grow">
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <Badge key={tech} variant="secondary">
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+          </CardContent>
+          <CardFooter className="flex justify-end items-center mt-auto pt-4">
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              <GitHubFollowModal githubUrl={project.githubUrl}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label={`GitHub for ${project.title}`}
+                >
+                  <Github />
+                </Button>
+              </GitHubFollowModal>
+            </div>
+          </CardFooter>
+        </Card>
+      </motion.div>
+    </a>
   );
 };
 
