@@ -20,7 +20,7 @@ export const projects: Project[] = [
     description: 'A real-time alert system for Goma, providing critical information and updates to residents.',
     techStack: ['Next.js', 'Firebase', 'PWA', 'Tailwind CSS'],
     githubUrl: 'https://github.com/maga1234-0/gomaalerte003',
-    liveUrl: 'https://github.com/maga1234-0/gomaalerte003',
+    liveUrl: 'https://gomaalerte003.vercel.app',
     imageUrl: getImage('project-3')?.imageUrl || '',
     imageHint: getImage('project-3')?.imageHint || 'futuristic city',
   },
