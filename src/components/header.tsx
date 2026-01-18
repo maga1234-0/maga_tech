@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { AppWindow, Menu } from "lucide-react";
+import { SquareCode, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "./ui/button";
 
@@ -40,7 +40,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
         <Link href="/" className="flex items-center gap-2 text-2xl font-headline font-bold text-primary">
-            <AppWindow className="w-8 h-8" />
+            <SquareCode className="w-8 h-8" />
             MagaTech
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
