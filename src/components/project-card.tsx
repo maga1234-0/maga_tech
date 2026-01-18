@@ -12,9 +12,10 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Github } from "lucide-react";
+import { Github, MessageSquare } from "lucide-react";
 import type { Project } from "@/lib/types";
 import { GitHubFollowModal } from "./github-follow-modal";
+import { ProjectCommentsModal } from "./project-comments-modal";
 
 type ProjectCardProps = {
   project: Project;
@@ -22,18 +23,18 @@ type ProjectCardProps = {
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
-    <a
-      href={project.liveUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block h-full group"
+    <motion.div
+      whileHover={{ y: -8 }}
+      transition={{ duration: 0.3 }}
+      className="h-full"
     >
-      <motion.div
-        whileHover={{ y: -8 }}
-        transition={{ duration: 0.3 }}
-        className="h-full"
-      >
-        <Card className="h-full flex flex-col overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 transition-all group-hover:border-primary/50">
+      <Card className="h-full flex flex-col overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 transition-all hover:border-primary/50 group">
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block"
+        >
           <CardHeader>
             <div className="aspect-video relative mb-4 rounded-lg overflow-hidden border">
               <Image
@@ -44,41 +45,43 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
                 data-ai-hint={project.imageHint}
               />
             </div>
-            <CardTitle className="font-headline text-2xl">
+            <CardTitle className="font-headline text-2xl group-hover:text-primary transition-colors">
               {project.title}
             </CardTitle>
             <CardDescription>{project.description}</CardDescription>
           </CardHeader>
-          <CardContent className="flex-grow">
-            <div className="flex flex-wrap gap-2">
-              {project.techStack.map((tech) => (
-                <Badge key={tech} variant="secondary">
-                  {tech}
-                </Badge>
-              ))}
-            </div>
-          </CardContent>
-          <CardFooter className="flex justify-end items-center mt-auto pt-4">
-            <div
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
+        </a>
+        <CardContent className="flex-grow">
+          <div className="flex flex-wrap gap-2">
+            {project.techStack.map((tech) => (
+              <Badge key={tech} variant="secondary">
+                {tech}
+              </Badge>
+            ))}
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-end items-center mt-auto pt-4 gap-2">
+          <ProjectCommentsModal projectId={project.id} projectTitle={project.title}>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label={`View comments for ${project.title}`}
             >
-              <GitHubFollowModal githubUrl={project.githubUrl}>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label={`GitHub for ${project.title}`}
-                >
-                  <Github />
-                </Button>
-              </GitHubFollowModal>
-            </div>
-          </CardFooter>
-        </Card>
-      </motion.div>
-    </a>
+              <MessageSquare />
+            </Button>
+          </ProjectCommentsModal>
+          <GitHubFollowModal githubUrl={project.githubUrl}>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label={`GitHub for ${project.title}`}
+            >
+              <Github />
+            </Button>
+          </GitHubFollowModal>
+        </CardFooter>
+      </Card>
+    </motion.div>
   );
 };
 
