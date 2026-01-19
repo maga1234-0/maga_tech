@@ -61,6 +61,19 @@ service cloud.firestore {
     }
 
     /**
+     * @description Rules for the project comments.
+     * @path /project_comments/{projectId}/comments/{commentId}
+     * @allow (list, get) Anyone can read comments.
+     * @allow (create) Anyone can create a comment.
+     * @deny (update, delete) No one can modify or delete comments.
+     */
+    match /project_comments/{projectId}/comments/{commentId} {
+        allow list, get: if true;
+        allow create: if true;
+        allow update, delete: if false;
+    }
+
+    /**
      * @description Rules for a user's root document.
      * @path /users/{userId}
      * @allow (create) An authenticated user can create their own user document.

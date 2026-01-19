@@ -12,9 +12,10 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Github } from "lucide-react";
+import { Github, MessageCircle } from "lucide-react";
 import type { Project } from "@/lib/types";
 import { GitHubFollowModal } from "./github-follow-modal";
+import { ProjectCommentsModal } from "./project-comments-modal";
 
 type ProjectCardProps = {
   project: Project;
@@ -60,6 +61,15 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
           </div>
         </CardContent>
         <CardFooter className="flex justify-end items-center mt-auto pt-4 gap-2">
+          <ProjectCommentsModal projectId={project.id}>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label={`Comments for ${project.title}`}
+            >
+              <MessageCircle />
+            </Button>
+          </ProjectCommentsModal>
           <GitHubFollowModal githubUrl={project.githubUrl}>
             <Button
               variant="ghost"

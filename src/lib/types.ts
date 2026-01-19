@@ -9,3 +9,10 @@ export type Project = {
   imageUrl: string;
   imageHint: string;
 };
+
+export type Comment = {
+  id: string;
+  name: string;
+  message: string;
+  createdAt: any;
+};

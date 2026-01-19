@@ -128,6 +128,32 @@
         "identifier",
         "createdAt"
       ]
+    },
+    "Comment": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Comment",
+      "type": "object",
+      "description": "Represents a comment left by a visitor on a project.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person who left the comment."
+        },
+        "message": {
+          "type": "string",
+          "description": "The content of the comment."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the comment was created."
+        }
+      },
+      "required": [
+        "name",
+        "message",
+        "createdAt"
+      ]
     }
   },
   "auth": {
@@ -202,6 +228,26 @@
             {
               "name": "followerId",
               "description": "The unique identifier for the follower entry."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/project_comments/{projectId}/comments/{commentId}",
+        "definition": {
+          "entityName": "Comment",
+          "schema": {
+            "$ref": "#/backend/entities/Comment"
+          },
+          "description": "Stores comments for a specific project. This collection is publicly readable, and anyone can add a comment.",
+          "params": [
+            {
+              "name": "projectId",
+              "description": "The unique identifier for the project (e.g., 'goma-alerte')."
+            },
+            {
+              "name": "commentId",
+              "description": "The unique identifier for the comment."
             }
           ]
         }
