@@ -14,16 +14,6 @@ export const projects: Project[] = [
     imageUrl: getImage('project-3')?.imageUrl || '',
     imageHint: getImage('project-3')?.imageHint || 'futuristic city',
   },
-  {
-    id: 'data-net',
-    title: 'DataNet',
-    description: 'A conceptual data visualization tool for analyzing complex network graphs and discovering insights.',
-    techStack: ['React', 'D3.js', 'Node.js', 'GraphQL'],
-    githubUrl: 'https://github.com/maga1234-0/maga_tech.git',
-    liveUrl: 'https://github.com/maga1234-0/maga_tech',
-    imageUrl: getImage('project-2')?.imageUrl || '',
-    imageHint: getImage('project-2')?.imageHint || 'abstract network',
-  },
 ];
 
 
