@@ -5,16 +5,6 @@ const getImage = (id: string) => PlaceHolderImages.find(p => p.id === id);
 
 export const projects: Project[] = [
   {
-    id: 'magatech-portfolio',
-    title: 'MagaTech Portfolio',
-    description: 'My personal portfolio site to showcase my skills and projects. Built with Next.js, Tailwind, and Firebase.',
-    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Firebase', 'Framer Motion'],
-    githubUrl: 'https://github.com/maga1234-0/maga_tech.git',
-    liveUrl: 'https://github.com/maga1234-0/maga_tech',
-    imageUrl: getImage('project-1')?.imageUrl || '',
-    imageHint: getImage('project-1')?.imageHint || 'code laptop',
-  },
-  {
     id: 'goma-alerte',
     title: 'GomaAlerte',
     description: 'A real-time alert system for Goma, providing critical information and updates to residents.',
