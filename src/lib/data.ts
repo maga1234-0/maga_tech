@@ -6,11 +6,11 @@ const getImage = (id: string) => PlaceHolderImages.find(p => p.id === id);
 export const projects: Project[] = [
   {
     id: 'pms-123',
-    title: 'Project Management System',
+    title: 'SafariPMS',
     description: 'A collaborative platform to manage projects, tasks, and teams efficiently.',
     techStack: ['Next.js', 'Firebase', 'Tailwind CSS', 'React'],
     githubUrl: 'https://github.com/maga1234-0/pms_123',
-    liveUrl: 'https://github.com/maga1234-0/pms_123',
+    liveUrl: 'https://pms-123.vercel.app',
     imageUrl: getImage('project-6')?.imageUrl || '',
     imageHint: getImage('project-6')?.imageHint || 'collaborative whiteboard',
   },
