@@ -5,6 +5,16 @@ const getImage = (id: string) => PlaceHolderImages.find(p => p.id === id);
 
 export const projects: Project[] = [
   {
+    id: 'pms-123',
+    title: 'Project Management System',
+    description: 'A collaborative platform to manage projects, tasks, and teams efficiently.',
+    techStack: ['Next.js', 'Firebase', 'Tailwind CSS', 'React'],
+    githubUrl: 'https://github.com/maga1234-0/pms_123',
+    liveUrl: 'https://github.com/maga1234-0/pms_123',
+    imageUrl: getImage('project-6')?.imageUrl || '',
+    imageHint: getImage('project-6')?.imageHint || 'collaborative whiteboard',
+  },
+  {
     id: 'goma-alerte',
     title: 'GomaAlerte',
     description: 'A real-time alert system for Goma, providing critical information and updates to residents.',
