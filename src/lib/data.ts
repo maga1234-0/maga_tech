@@ -11,8 +11,8 @@ export const projects: Project[] = [
     techStack: ['Next.js', 'Firebase', 'Tailwind CSS', 'React'],
     githubUrl: 'https://github.com/maga1234-0/pms_123',
     liveUrl: 'https://pms-123.vercel.app',
-    imageUrl: getImage('project-6')?.imageUrl || '',
-    imageHint: getImage('project-6')?.imageHint || 'collaborative whiteboard',
+    imageUrl: getImage('project-7')?.imageUrl || '',
+    imageHint: getImage('project-7')?.imageHint || 'hotel lobby',
   },
   {
     id: 'goma-alerte',
